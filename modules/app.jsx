@@ -3,7 +3,11 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 // API URL
-var apiUrl = 'https://kansai.wordcamp.org/2015/wp-json/';
+var apiUrl = 'https://2015.us.wordcamp.org/wp-json/';
+var postUrl = apiUrl + 'posts';
+var sessionUrl = postUrl + '?type=wcb_session';
+var speakerUrl = postUrl + '?type=wcb_speaker';
+var sponsorUrl = postUrl + '?type=wcb_sponsor';
 
 // Component
 var Post = React.createClass({
@@ -20,7 +24,6 @@ var Post = React.createClass({
 var PostList = React.createClass({
 	render: function() {
 		var postNodes = this.props.postData.map(function (post) {
-		console.log(post);
 			return (
 				<Post post={post} key={post.ID}/ >
 			);
@@ -36,7 +39,7 @@ var PostList = React.createClass({
 var PostBox = React.createClass({
 	loadPostsFromServer: function() {
 		$.ajax({
-			url: this.props.apiUrl + 'posts',
+			url: this.props.apiUrl,
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
@@ -64,6 +67,18 @@ var PostBox = React.createClass({
 
 // Render
 ReactDOM.render(
-	<PostBox apiUrl={apiUrl}/>,
+	<PostBox apiUrl={postUrl}/>,
 	document.getElementById('content')
+);
+ReactDOM.render(
+	<PostBox apiUrl={sessionUrl}/>,
+	document.getElementById('session')
+);
+ReactDOM.render(
+	<PostBox apiUrl={speakerUrl}/>,
+	document.getElementById('speaker')
+);
+ReactDOM.render(
+	<PostBox apiUrl={sponsorUrl}/>,
+	document.getElementById('sponsor')
 );
