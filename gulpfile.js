@@ -17,4 +17,13 @@ gulp.task('watch', function() {
   gulp.watch('./modules/*.jsx', ['browserify'])
 });
 
-gulp.task('default', ['browserify', 'watch']);
+gulp.task('webserver', function() {
+  gulp.src('./')
+    .pipe(webserver({
+      host: '127.0.0.1',
+      livereload: true
+    })
+  );
+});
+
+gulp.task('default', ['browserify', 'watch', 'webserver']);
