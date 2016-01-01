@@ -9,6 +9,11 @@ var sessionUrl = postUrl + '&type=wcb_session';
 var speakerUrl = postUrl + '&type=wcb_speaker';
 var sponsorUrl = postUrl + '&type=wcb_sponsor';
 
+//Load Component
+var SessionBox = require('../modules/session.jsx');
+var SponsorBox = require('../modules/sponsor.jsx');
+var SpeakerBox = require('../modules/speaker.jsx');
+
 // Component
 var Post = React.createClass({
 	render: function() {
@@ -72,14 +77,14 @@ ReactDOM.render(
 	document.getElementById('content')
 );
 ReactDOM.render(
-	<PostBox apiUrl={sessionUrl}/>,
+	<SessionBox apiUrl={sessionUrl}/>,
 	document.getElementById('session')
 );
 ReactDOM.render(
-	<PostBox apiUrl={speakerUrl}/>,
+	<SpeakerBox apiUrl={speakerUrl}/>,
 	document.getElementById('speaker')
 );
 ReactDOM.render(
-	<PostBox apiUrl={sponsorUrl}/>,
+	<SponsorBox apiUrl={sponsorUrl}/>,
 	document.getElementById('sponsor')
 );
