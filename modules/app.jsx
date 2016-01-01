@@ -4,10 +4,10 @@ var ReactDOM = require('react-dom');
 
 // API URL
 var apiUrl = 'https://2015.us.wordcamp.org/wp-json/';
-var postUrl = apiUrl + 'posts';
-var sessionUrl = postUrl + '?type=wcb_session';
-var speakerUrl = postUrl + '?type=wcb_speaker';
-var sponsorUrl = postUrl + '?type=wcb_sponsor';
+var postUrl = apiUrl + 'posts?filter[posts_per_page]=-1';
+var sessionUrl = postUrl + '&type=wcb_session';
+var speakerUrl = postUrl + '&type=wcb_speaker';
+var sponsorUrl = postUrl + '&type=wcb_sponsor';
 
 // Component
 var Post = React.createClass({
@@ -43,6 +43,7 @@ var PostBox = React.createClass({
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
+				console.log(data);
 				this.setState({data: data});
 			}.bind(this),
 			error: function(xhr, status, err) {
