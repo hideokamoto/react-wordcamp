@@ -3,11 +3,31 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 // Component
+var SponsorSite = React.createClass({
+	render: function() {
+		return(
+			<a href={this.props.data[0]['value']}>
+				{this.props.data[0]['value']}
+			</a>
+		);
+	}
+});
+
 var Sponsor = React.createClass({
 	render: function() {
+		var sponsorSite = '';
+		if( this.props.post.post_meta[0] ) {
+			sponsorSite = <SponsorSite data={this.props.post.post_meta} />;
+		}
 		return(
 			<div>
 				<h2 className="page-header">{this.props.post.title}</h2>
+				<dl>
+					<dt>Sponsor Lebel</dt>
+					<dd>{this.props.post.terms.wcb_sponsor_level[0]['name']}</dd>
+					<dt>Sponsor WebSite</dt>
+					<dd>{sponsorSite}</dd>
+				</dl>
 				<div dangerouslySetInnerHTML={{__html: this.props.post.content}} />
 			</div>
 		);
@@ -36,7 +56,6 @@ var SponsorBox = React.createClass({
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
-				console.log(data);
 				this.setState({data: data});
 			}.bind(this),
 			error: function(xhr, status, err) {
