@@ -3,17 +3,11 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 // API URL
-var apiUrl = 'https://2015.us.wordcamp.org/wp-json/';
+var apiUrl = 'https://central.wordcamp.org/wp-json/';
 var centralApiUrl = 'https://central.wordcamp.org/wp-json/posts?type=wordcamp&filter[posts_per_page]=100';
-var postUrl = apiUrl + 'posts?filter[posts_per_page]=-1';
-var sessionUrl = postUrl + '&type=wcb_session';
-var speakerUrl = postUrl + '&type=wcb_speaker';
-var sponsorUrl = postUrl + '&type=wcb_sponsor';
+var postUrl = apiUrl + 'posts';
 
 //Load Component
-var SessionBox = require('../modules/session.jsx');
-var SponsorBox = require('../modules/sponsor.jsx');
-var SpeakerBox = require('../modules/speaker.jsx');
 var CentralBox = require('../modules/central.jsx');
 
 // Component
@@ -21,7 +15,7 @@ var Post = React.createClass({
 	render: function() {
 		return(
 			<div>
-				<h2 className="page-header">{this.props.post.title}</h2>
+				<h3 className="page-header">{this.props.post.title}</h3>
 				<div dangerouslySetInnerHTML={{__html: this.props.post.content}} />
 			</div>
 		);
@@ -36,9 +30,10 @@ var PostList = React.createClass({
 			);
 		});
 		return (
-			<ul className="postList list-group">
+			<div className="postList">
+				<h2 className="page-header">WordCamp Central Informations</h2>
 				{postNodes}
-			</ul>
+			</div>
 		);
 	}
 });
@@ -50,7 +45,6 @@ var PostBox = React.createClass({
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
-				//console.log(data);
 				this.setState({data: data});
 			}.bind(this),
 			error: function(xhr, status, err) {
@@ -77,18 +71,6 @@ var PostBox = React.createClass({
 ReactDOM.render(
 	<PostBox apiUrl={postUrl}/>,
 	document.getElementById('content')
-);
-ReactDOM.render(
-	<SessionBox apiUrl={sessionUrl}/>,
-	document.getElementById('session')
-);
-ReactDOM.render(
-	<SpeakerBox apiUrl={speakerUrl}/>,
-	document.getElementById('speaker')
-);
-ReactDOM.render(
-	<SponsorBox apiUrl={sponsorUrl}/>,
-	document.getElementById('sponsor')
 );
 
 ReactDOM.render(
