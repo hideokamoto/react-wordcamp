@@ -28,13 +28,17 @@ var Central = React.createClass({
 		} else {
 			wcdata["End Date"] = 'No data';
 		}
+		var googlemapUrl = "http://maps.google.com/maps?q=" + wcdata['Physical Address'];
 		return(
 			<tr className={pastEventClass}>
 				<td className="page-header">{this.props.post.title}<br/>{pastEventText}</td>
 				<td><a href={wcdata["URL"]}>{wcdata["URL"]}</a></td>
 				<td>{wcdata["Location"]}</td>
 				<td>{wcdata["Venue Name"]}</td>
-				<td>{wcdata["Physical Address"]}</td>
+				<td>
+					{wcdata["Physical Address"]}<br/>
+					<a href={googlemapUrl}>See in GoogleMap</a>
+				</td>
 				<td>{wcdata["Start Date"]}</td>
 				<td>{wcdata["End Date"]}</td>
 				<td>{wcdata["Number of Anticipated Attendees"]}</td>
