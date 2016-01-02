@@ -17,8 +17,10 @@ var Central = React.createClass({
 		var nowDate = new Date();
 		var startDate = new Date(wcdata["Start Date (YYYY-mm-dd)"]* 1000 );
 		var pastEventClass = '';
+		var pastEventText = '';
 		if( startDate.getTime() < nowDate.getTime()) {
 			pastEventClass = 'info';
+			pastEventText = '(Finished)';
 		}
 		wcdata["Start Date"] = startDate.toLocaleString();
 		if( wcdata["End Date (YYYY-mm-dd)"] ) {
@@ -28,7 +30,7 @@ var Central = React.createClass({
 		}
 		return(
 			<tr className={pastEventClass}>
-				<td className="page-header">{this.props.post.title}</td>
+				<td className="page-header">{this.props.post.title}<br/>{pastEventText}</td>
 				<td><a href={wcdata["URL"]}>{wcdata["URL"]}</a></td>
 				<td>{wcdata["Location"]}</td>
 				<td>{wcdata["Venue Name"]}</td>
@@ -82,23 +84,25 @@ var CentralList = React.createClass({
 			);
 		});
 		return (
-			<table className="wcList table-hover table table-striped">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>WebSite</th>
-						<th>Place</th>
-						<th>Venue Name</th>
-						<th>Physical Address</th>
-						<th>Start Date</th>
-						<th>End Date</th>
-						<th>Number of Anticipated Attendees</th>
-					</tr>
-				</thead>
-				<tbody>
-					{centralNodes}
-				</tbody>
-			</table>
+			<div className="table-responsive">
+				<table className="wcList table-hover table table-striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>WebSite</th>
+							<th>Place</th>
+							<th>Venue Name</th>
+							<th>Physical Address</th>
+							<th>Start Date</th>
+							<th>End Date</th>
+							<th>Number of Anticipated Attendees</th>
+						</tr>
+					</thead>
+					<tbody>
+						{centralNodes}
+					</tbody>
+				</table>
+			</div>
 		);
 	}
 });
