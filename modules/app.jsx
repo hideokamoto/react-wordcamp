@@ -4,6 +4,7 @@ var ReactDOM = require('react-dom');
 
 // API URL
 var apiUrl = 'https://2015.us.wordcamp.org/wp-json/';
+var centralApiUrl = 'https://central.wordcamp.org/wp-json/posts?type=wordcamp&filter[posts_per_page]=100';
 var postUrl = apiUrl + 'posts?filter[posts_per_page]=-1';
 var sessionUrl = postUrl + '&type=wcb_session';
 var speakerUrl = postUrl + '&type=wcb_speaker';
@@ -13,6 +14,7 @@ var sponsorUrl = postUrl + '&type=wcb_sponsor';
 var SessionBox = require('../modules/session.jsx');
 var SponsorBox = require('../modules/sponsor.jsx');
 var SpeakerBox = require('../modules/speaker.jsx');
+var CentralBox = require('../modules/central.jsx');
 
 // Component
 var Post = React.createClass({
@@ -48,7 +50,7 @@ var PostBox = React.createClass({
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
-				console.log(data);
+				//console.log(data);
 				this.setState({data: data});
 			}.bind(this),
 			error: function(xhr, status, err) {
@@ -87,4 +89,9 @@ ReactDOM.render(
 ReactDOM.render(
 	<SponsorBox apiUrl={sponsorUrl}/>,
 	document.getElementById('sponsor')
+);
+
+ReactDOM.render(
+	<CentralBox apiUrl={centralApiUrl}/>,
+	document.getElementById('central')
 );
